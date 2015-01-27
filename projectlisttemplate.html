@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Peace!</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js" ></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Ongoing projects for peace</h1>
+        <div class="row">
+            <div class="col-md-6">
+                {{range .}}
+                    <div style="margin:10px">
+                        <em>Project:</em> {{.ProjectName}} <br />
+                        <em>Description:</em> {{.ProjectDescription}} <br />
+                        <em>Contact Info:</em> {{.ContactInfo}} <br />
+                        <em>Area of focus:</em> {{.AreaOfFocus}}
+                        <hr />
+                    </div>
+                {{end}}
+            </div>
+
+            <div class="col-md-6">
+                <div class="pull-right">
+                    <a href="/"><button class="btn btn-default">Back to project creation</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>
