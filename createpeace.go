@@ -108,7 +108,7 @@ func projectlist(w http.ResponseWriter, r *http.Request) {
 			ProjectName:        "Your project...",
 			ProjectDescription: "...will be the first!",
 			ContactInfo:        "What are you going to do?",
-			AreaOfFocus:        "",
+			AreaOfFocus:        "Human Rights",
 		}
 		var noprojects []ActOfPeace
 		noprojects = append(noprojects, blankproject)
