@@ -2,14 +2,15 @@
 <html>
 <head>
     <title>Peace!</title>
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js" ></script>
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js" ></script>
 </head>
     
-<body><div class="container">
+<body><div class="container-fluid">
+    <a href="/projectlist"><button class="btn btn-link">See all ongoing projects</button></a>
+    <br />
     <h1>Create an act of peace</h1>
-    <div class="row">
-        <div class="col-md-6">
+    
         <form action="/createact" method="post" class="form-vertical">
             <label for="projectname">Project Name</label>
             <br />
@@ -26,60 +27,61 @@
             <label for="contactinfo">Contact Info</label>
             <br />
             <textarea name="contactinfo" class="form-group required" cols="50" rows="1" maxlength="100" id="emailfield"
-                        placeholder="Who do we contact to get involved?" value="">{{.}}</textarea>
+                        placeholder="Who do we contact to get involved?" value=""></textarea>
             <br />
 
             <label for="focusarea">Focus Area</label>
             <br />
-            <select name="focusarea" id="focusareaselect">
-                <option value="Access to Water & Natural Resources">Access to Water and Natural Resources</option>
-                <option value="Advancing Women and Children">Advancing Women and Children</option>
-                <option value="Education & Community Development">Education & Community Development</option>
-                <option value="Global Health & Wellness">Global Health & Wellness</option>
-                <option value="Environmental Sustainability">Environmental Sustainability</option>
-                <option value="Conflict Resolution">Conflict Resolution</option>
-                <option value="Inclusivity & Cooperation">Inclusivity & Cooperation</option>
-                <option value="Human Rights">Human Rights</option>
-                <option value="Alleviation of Extreme Poverty">Alleviation of Extreme Poverty</option>
-                <option value="Weapons Access & Proliferation">Weapons Access & Proliferation</option>
-            </select>
-
+            
+            {{with getFocusAreas}}
+            
+            {{template "focusareas" .}}
+            
+            {{end}}
+            
+            <img src="images/jonata-Water-bottle.png" alt="hi" id="carousel" style="height:48px;" />
+            
             <br />
             <br />
             <br />
             <input class="btn btn-primary" type="submit" value="Submit your new project">
+            
+            
         </form>
-
-        </div>
-        
-        
-        
-        <div class="col-md-6">
-            <div class="pull-right">
-                <a href="/projectlist"><button class="btn btn-default">See all projects</button></a>
-            </div>
-            <br />
-            <br />
-            <div id="yuno" style="display:none; margin:20px" class="pull-right">
-                <img src="http://i.imgur.com/gcb7a8q.jpg" title="His Holiness" alt="Deep wisdom" />
-                <br />
-                <blockquote><em>Change takes place through action, not through meditation and prayer alone.</em></blockquote>
-            </div>
-        </div>
-    
-    </div>
-    
-    
     
 </div>
     
+    
+    
+    
     <script>
     $(document).ready(function () {
+        var focusAreaJSON = $.parseJSON({{getFocusAreaJSON}});
+        
+        $("#descriptionfield").on("focus", function() {
+            $(this).css("background", "linear-gradient(rgba(255,255,255,0.85),rgba(225,225,225,0.85)), url(http://i.imgur.com/gcb7a8q.jpg)")
+                   .css("background-size", "100% 100%");
+        });
+        
         $("#focusareaselect").on("change", function() {
-            $("#yuno").slideDown();
+            $("#carousel").attr("src", "images/" + focusAreaJSON[$("#focusareaselect").val()]);
         });
     });
     </script>
     
+    
+    
+    
     </body>
 </html>
+
+
+
+
+{{define "focusareas"}}
+    <select name="focusarea" id="focusareaselect">
+    {{range $key, $value := .}}
+        <option value="{{$key}}">{{$key}}</option>
+    {{end}}
+    </select>
+{{end}}

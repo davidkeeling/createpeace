@@ -14,3 +14,14 @@ indexes:
   ancestor: yes
   properties:
   - name: ProjectName
+
+- kind: ActOfPeace
+  ancestor: yes
+  properties:
+  - name: WhenCreated
+
+- kind: ActOfPeace
+  ancestor: yes
+  properties:
+  - name: WhenCreated
+    direction: desc
