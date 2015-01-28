@@ -2,8 +2,8 @@
 <html>
 <head>
     <title>Peace!</title>
-    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js" ></script>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js" ></script>
 </head>
     
 <body><div class="container-fluid">
@@ -15,19 +15,19 @@
             <label for="projectname">Project Name</label>
             <br />
             <textarea name="projectname" class="form-group required" cols="50" rows="1" maxlength="100" id="namefield"
-                        placeholder="Make it something cool" value=""></textarea>
+                        placeholder="Make it something cool" value="" required></textarea>
             <br />
             
             <label for="projectdescription">Project Description</label>
             <br />
             <textarea name="projectdescription" class="form-group required" cols="50" rows="15" maxlength="500" id="descriptionfield"
-                        placeholder="Your vision for the project" value=""></textarea>
+                        placeholder="Your vision for the project" value="" required></textarea>
             <br />
             
             <label for="contactinfo">Contact Info</label>
             <br />
-            <textarea name="contactinfo" class="form-group required" cols="50" rows="1" maxlength="100" id="emailfield"
-                        placeholder="Who do we contact to get involved?" value=""></textarea>
+            <input name="contactinfo" class="form-group required" cols="50" size="50" id="emailfield" type="email"
+                        placeholder="Who do we contact to get involved?" value="" required />
             <br />
 
             <label for="focusarea">Focus Area</label>
@@ -39,20 +39,14 @@
             
             {{end}}
             
-            <img src="images/jonata-Water-bottle.png" alt="hi" id="carousel" style="height:48px;" />
+            <img src="images/jonata-Water-bottle.png" alt="issueiconcarousel" id="carousel" style="height:96px;" />
             
             <br />
             <br />
             <br />
             <input class="btn btn-primary" type="submit" value="Submit your new project">
-            
-            
         </form>
-    
 </div>
-    
-    
-    
     
     <script>
     $(document).ready(function () {
@@ -69,14 +63,8 @@
     });
     </script>
     
-    
-    
-    
     </body>
 </html>
-
-
-
 
 {{define "focusareas"}}
     <select name="focusarea" id="focusareaselect">

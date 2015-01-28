@@ -20,6 +20,7 @@ type ActOfPeace struct {
 
 var funcMap = template.FuncMap{
 	"getFocusAreas":    getFocusAreas,
+	"getFocusAreaURL":  getFocusAreaURL,
 	"getFocusAreaJSON": getFocusAreaJSON,
 }
 
@@ -40,16 +41,13 @@ func getFocusAreas() map[string]string {
 	return focusAreaList
 }
 
+func getFocusAreaURL(theKey string) (theValue string) {
+	return focusAreaList[theKey]
+}
+
 func getFocusAreaJSON() (focusAreaJSON string) {
 	theJSON, _ := json.Marshal(focusAreaList)
 	return string(theJSON)
-}
-
-func init() {
-	http.HandleFunc("/", index)
-	http.HandleFunc("/createact", createact)
-	http.HandleFunc("/projectlist", projectlist)
-
 }
 
 func index(w http.ResponseWriter, r *http.Request) {
@@ -94,12 +92,8 @@ func createact(w http.ResponseWriter, r *http.Request) {
 
 func projectlist(w http.ResponseWriter, r *http.Request) {
 	c := appengine.NewContext(r)
-	listTemplate, err := template.ParseFiles("projectlisttemplate.html")
-	if err != nil {
-		c.Warningf("Error parsing template file: %s", err)
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
+
+	listTemplate := template.Must(template.New("listTemplate").Funcs(funcMap).ParseFiles("projectlisttemplate.html"))
 
 	q := datastore.NewQuery("ActOfPeace").Ancestor(ancestorKey(c)).Order("-WhenCreated").Limit(50)
 	theActs := make([]ActOfPeace, 0, 50)
@@ -118,13 +112,20 @@ func projectlist(w http.ResponseWriter, r *http.Request) {
 		}
 		var noprojects []ActOfPeace
 		noprojects = append(noprojects, blankproject)
-		listTemplate.Execute(w, noprojects)
+		listTemplate.ExecuteTemplate(w, "projectlisttemplate.html", noprojects)
 		return
 	}
 
-	listTemplate.Execute(w, theActs)
+	listTemplate.ExecuteTemplate(w, "projectlisttemplate.html", theActs)
 }
 
 func ancestorKey(c appengine.Context) *datastore.Key {
 	return datastore.NewKey(c, "OngoingActs", "default_actofpeace", 0, nil)
+}
+
+func init() {
+	http.HandleFunc("/", index)
+	http.HandleFunc("/createact", createact)
+	http.HandleFunc("/projectlist", projectlist)
+
 }
