@@ -4,12 +4,19 @@
     <title>Peace!</title>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js" ></script>
+    <meta name="viewport" content="width=device-width, initial-scale=0.41, maximum-scale=1" />
+    <style>
+        @viewport {width: 480px auto;}
+        #carousel {height:96px;}
+    </style>
 </head>
     
 <body><div class="container-fluid">
-    <a href="/projectlist"><button class="btn btn-link">See all ongoing projects</button></a>
-    <br />
-    <h1>Create an act of peace</h1>
+    <div class="row">
+        <div class="col-md-8">
+        <a href="/projectlist"><button class="btn btn-link">See all ongoing projects</button></a>
+        <br />
+        <h1>Create an act of peace</h1>
     
         <form action="/createact" method="post" class="form-vertical">
             <label for="projectname">Project Name</label>
@@ -39,13 +46,15 @@
             
             {{end}}
             
-            <img src="images/jonata-Water-bottle.png" alt="issueiconcarousel" id="carousel" style="height:96px;" />
+            <img src="images/jonata-Water-bottle.png" alt="issueiconcarousel" id="carousel" />
             
             <br />
             <br />
             <br />
             <input class="btn btn-primary" type="submit" value="Submit your new project">
         </form>
+        </div>
+    </div>
 </div>
     
     <script>
@@ -60,6 +69,7 @@
         $("#focusareaselect").on("change", function() {
             $("#carousel").attr("src", "images/" + focusAreaJSON[$("#focusareaselect").val()]);
         });
+    
     });
     </script>
     

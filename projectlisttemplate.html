@@ -3,26 +3,36 @@
 <head>
     <title>Peace Projects!</title>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=0.41, maximum-scale=1" />
+    <style>
+        @viewport {width: 480px auto;}
+        .projectwrapper div {display:inline-block;}
+        .projectwrapper img {height:128px;}
+    </style>
 </head>
 <body>
     <div class="container-fluid">
-        <a href="/"><button class="btn btn-link">Back to project creation</button></a>
-        <h1>Ongoing projects for peace</h1>
-            {{range .}}
-                <div style="margin:10px;">
-                    <div style="display:inline-block">
-                        <em>Project:</em> {{.ProjectName}} <br />
-                        <em>Description:</em> {{.ProjectDescription}} <br />
-                        <em>Contact Info:</em> {{.ContactInfo}} <br />
-                        <em>Area of focus:</em> {{.AreaOfFocus}} <br />
-                        <em>Created:</em> {{.WhenCreated}} <br />
-                        <hr />
-                    </div>
-                    <div style="display:inline-block">
-                        <img src="images/{{getFocusAreaURL .AreaOfFocus}}" alt="issueimg" style="height:128px;" />
-                    </div>
+        <div class="row">
+            <div class="col-md-8">
+                <a href="/"><button class="btn btn-link">Back to project creation</button></a>
+                <h1>Ongoing projects for peace</h1>
+                    {{range .}}
+                        <div class="projectwrapper">
+                            <div>
+                                <em>Project:</em> {{.ProjectName}} <br />
+                                <em>Description:</em> {{.ProjectDescription}} <br />
+                                <em>Contact Info:</em> {{.ContactInfo}} <br />
+                                <em>Area of focus:</em> {{.AreaOfFocus}} <br />
+                                <em>Created:</em> {{.WhenCreated}} <br />
+                                <hr />
+                            </div>
+                            <div>
+                                <img src="images/{{getFocusAreaURL .AreaOfFocus}}" alt="issueimg" />
+                            </div>
+                        </div>
+                    {{end}}
                 </div>
-            {{end}}
+        </div>
     </div>
 </body>
 </html>
